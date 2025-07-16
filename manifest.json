@@ -1,0 +1,21 @@
+{
+  "name": "ObscuraLang",
+  "short_name": "ObscuraLang",
+  "description": "AI-Native Symbolic Programming Language",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#00ff9d",
+  "icons": [
+    {
+      "src": "obscuralang.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "obscuralang.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

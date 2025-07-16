@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | ObscuraLang</title>
+    <link rel="stylesheet" href="obscuralang.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            background: var(--bg-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-code {
+            font-size: clamp(6rem, 20vw, 12rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff9d, #00ffea, #00ff9d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+            line-height: 1;
+            animation: glitch 3s infinite;
+            text-shadow: 0 0 30px rgba(0, 255, 157, 0.4);
+        }
+
+        .error-message {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 2rem 0;
+            color: var(--text-primary);
+            max-width: 800px;
+        }
+
+        .error-symbol {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin: 2rem 0;
+            animation: rotate 10s linear infinite;
+            color: var(--accent);
+        }
+
+        .home-button {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .home-button:hover {
+            background: rgba(0, 255, 157, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes glitch {
+            0% { transform: skew(0deg); }
+            20% { transform: skew(10deg); }
+            40% { transform: skew(-10deg); }
+            60% { transform: skew(5deg); }
+            80% { transform: skew(-5deg); }
+            100% { transform: skew(0deg); }
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="error-container">
+        <div id="particles" class="particles"></div>
+        <div class="error-symbol">⟛</div>
+        <h1 class="error-code">404</h1>
+        <p class="error-message">The symbolic path you seek has mutated beyond recognition.</p>
+        <a href="index.html" class="home-button">Return to Source</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script>
+        // Three.js Animation for 404 page
+        let animationFrameId;
+        let renderer;
+        let scene;
+        let camera;
+        let particles;
+
+        function init404Animation() {
+            try {
+                const container = document.getElementById('particles');
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+
+                renderer = new THREE.WebGLRenderer({
+                    alpha: true,
+                    antialias: true
+                });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                container.appendChild(renderer.domElement);
+
+                // Create particles
+                const geometry = new THREE.BufferGeometry();
+                const count = window.innerWidth < 768 ? 300 : 500;
+                const positions = new Float32Array(count * 3);
+
+                for (let i = 0; i < count * 3; i += 3) {
+                    positions[i] = (Math.random() - 0.5) * 2000;
+                    positions[i + 1] = (Math.random() - 0.5) * 2000;
+                    positions[i + 2] = (Math.random() - 0.5) * 2000;
+                }
+
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+                const material = new THREE.PointsMaterial({
+                    color: 0x00ff9d,
+                    size: window.innerWidth < 768 ? 3 : 2,
+                    transparent: true,
+                    opacity: 0.8
+                });
+
+                particles = new THREE.Points(geometry, material);
+                scene.add(particles);
+
+                camera.position.z = 1000;
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+                animate();
+            } catch (error) {
+                console.error('404 animation initialization error:', error);
+            }
+        }
+
+        function animate() {
+            try {
+                animationFrameId = requestAnimationFrame(animate);
+                if (particles) {
+                    particles.rotation.x += 0.0005;
+                    particles.rotation.y += 0.0005;
+                }
+                if (renderer && scene && camera) {
+                    renderer.render(scene, camera);
+                }
+            } catch (error) {
+                console.error('Animation error:', error);
+                cancelAnimationFrame(animationFrameId);
+            }
+        }
+
+        // Initialize animation
+        window.addEventListener('load', init404Animation);
+
+        // Clean up on page hide
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            } else {
+                init404Animation();
+            }
+        });
+    </script>
+</body>
+</html> 

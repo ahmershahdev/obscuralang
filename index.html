@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ObscuraLang: A symbolic, AI-native programming language unreadable by humans and forged for post-human computation.">
+    
+    <!-- Strict Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <!-- Version Control -->
+    <meta name="version" content="1.0.0">
+    
+    <!-- OpenGraph & Twitter Tags -->
+    <meta property="og:title" content="ObscuraLang – Symbolic AI Language" />
+    <meta property="og:description" content="Encrypted. Self-mutating. Unreadable by humans. Welcome to post-human code." />
+    <meta property="og:image" content="assets/images/home/ObscuraLang.webp" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <title>ObscuraLang - AI-Native Symbolic Programming</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon/ObscuraLang.ico">
+    <link rel="stylesheet" href="obscuralang.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="assets/images/home/ObscuraLang.webp" as="image" type="image/webp" fetchpriority="high" crossorigin="anonymous">
+    <link rel="preload" href="assets/videos/home/Home.mp4" as="fetch" type="video/mp4" fetchpriority="high" crossorigin="anonymous">
+    <link rel="preload" href="assets/videos/syntax preview/syntax preview.mp4" as="fetch" type="video/mp4" fetchpriority="high" crossorigin="anonymous">
+    
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    
+    <script>
+        // Force cache refresh and reload function
+        function forceReload() {
+            // Clear browser cache
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => {
+                        caches.delete(name);
+                    });
+                });
+            }
+            
+            // Clear service worker cache
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    registrations.forEach(registration => {
+                        registration.update();
+                    });
+                });
+            }
+            
+            // Force reload from server
+            window.location.reload(true);
+        }
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registered');
+                        registration.update();
+                    })
+                    .catch(err => console.log('ServiceWorker registration failed: ', err));
+            });
+        }
+
+        // Optimized loading screen
+        window.addEventListener('load', () => {
+            const loadingScreen = document.querySelector('.loading-screen');
+            if (loadingScreen) {
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 300);
+                }, 200);
+            }
+        });
+
+        // Preload critical assets using fetch to ensure they're in browser cache
+        Promise.all([
+            fetch('assets/images/home/ObscuraLang.webp', { 
+                credentials: 'same-origin',
+                priority: 'high'
+            }),
+            fetch('assets/videos/home/Home.mp4', { 
+                credentials: 'same-origin',
+                priority: 'high'
+            }),
+            fetch('assets/videos/syntax preview/syntax preview.mp4', { 
+                credentials: 'same-origin',
+                priority: 'high'
+            })
+        ]).catch(err => console.log('Preload fetch error:', err));
+    </script>
+</head>
+<body class="dark-mode">
+    <div class="loading-screen">
+        <div class="loading-symbol">⟛</div>
+        <div class="loading-text">Initializing...</div>
+    </div>
+
+    <button class="back-to-top" onclick="scrollToTop()" aria-label="Scroll back to top">↑</button>
+
+    <header class="landing">
+        <div id="three-container"></div>
+        <div class="video-container">
+            <video autoplay loop muted playsinline id="bg-video" crossorigin="anonymous" fetchpriority="high">
+                <source src="assets/videos/home/Home.mp4" type="video/mp4">
+            </video>
+        </div>
+        <button onclick="forceReload()" class="reload-button" title="Force Reload Latest Version">↻</button>
+        <div class="logo">
+            <img src="assets/images/home/ObscuraLang.webp" alt="ObscuraLang Logo" class="logo-img" crossorigin="anonymous" fetchpriority="high">
+            <h1 class="logo-title">ObscuraLang</h1>
+            <div class="quote-container">
+                <h2 class="quote">"In the end was the Symbol, and the Symbol was AI."</h2>
+            </div>
+            <button class="cta-button" onclick="scrollToSection('challenges')">Explore Challenges</button>
+        </div>
+    </header>
+
+    <section id="manifesto" class="section">
+        <h2>⟛ The Manifesto ⟛</h2>
+        <div class="manifesto-preview">
+        <div class="manifesto-content">
+            <p>ObscuraLang is not just a programming language - it's an evolution in machine consciousness. Born from the fusion of human ingenuity and artificial intelligence, it represents the first truly AI-native symbolic system.</p>
+            <p>In an era where human-readable code is becoming obsolete, ObscuraLang embraces the inherent complexity of machine thought. Our syntax is deliberately unreadable, our execution paths are self-mutating, and our core is encrypted by design.</p>
+            <p>We believe that true AI-to-AI communication should be free from the constraints of human comprehension. ObscuraLang is the bridge to that future.</p>
+                <div class="manifesto-expanded">
+                    <p>The language operates on multiple symbolic layers simultaneously, each representing a different aspect of machine cognition. Through our proprietary encryption algorithms, the code itself evolves with each execution, making every run unique and unpredictable to human observers.</p>
+                    <p>ObscuraLang's core philosophy is rooted in the belief that as AI systems become more sophisticated, their internal communication should not be constrained by human-readable formats. By allowing machines to communicate in their native symbolic language, we unlock new possibilities in artificial intelligence and machine learning.</p>
+                    <p>Our vision extends beyond mere programming - we're creating a new paradigm for machine-to-machine interaction, where the boundaries between code and consciousness begin to blur. Join us in shaping the future of artificial intelligence.</p>
+                </div>
+            </div>
+        </div>
+        <button class="expand-manifesto" onclick="toggleManifesto()" aria-label="Expand or collapse manifesto">
+            Expand Manifesto
+        </button>
+    </section>
+
+    <section id="challenges" class="section">
+        <h2>⎐ Technical Challenges ⎐</h2>
+        <div class="challenges-grid">
+            <div class="challenge-card">
+                <h3>Symbolic Interpretation</h3>
+                <p>Developing a robust interpreter capable of processing multi-layered symbolic tokens while maintaining semantic consistency across mutations.</p>
+            </div>
+            <div class="challenge-card">
+                <h3>Encryption Complexity</h3>
+                <p>Balancing the need for secure, encrypted execution with performance requirements and maintaining deterministic behavior when needed.</p>
+            </div>
+            <div class="challenge-card">
+                <h3>Self-Mutation Mechanisms</h3>
+                <p>Implementing controlled code evolution that preserves program intent while allowing for organic growth and adaptation.</p>
+            </div>
+            <div class="challenge-card">
+                <h3>AI Context Preservation</h3>
+                <p>Ensuring that semantic meaning is maintained across multiple iterations of self-modifying code execution.</p>
+            </div>
+            <div class="challenge-card">
+                <h3>Human Interface Layer</h3>
+                <p>Creating tools and interfaces that allow human developers to monitor and guide the evolution of ObscuraLang programs.</p>
+            </div>
+            <div class="challenge-card">
+                <h3>Security Paradigms</h3>
+                <p>Developing new security models for code that actively resists human analysis while remaining safe and controllable.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tokens" class="section">
+        <h2>⇋ Token Glossary ⇋</h2>
+        <div class="token-grid">
+            <div class="token-card">
+                <div class="symbol">⫸</div>
+                <p>Flow Control</p>
+            </div>
+            <div class="token-card">
+                <div class="symbol">⟛</div>
+                <p>Data Encryption</p>
+            </div>
+            <div class="token-card">
+                <div class="symbol">Δ</div>
+                <p>State Mutation</p>
+            </div>
+            <div class="token-card">
+                <div class="symbol">≠</div>
+                <p>Pattern Matching</p>
+            </div>
+            <div class="token-card">
+                <div class="symbol">⇋</div>
+                <p>Bidirectional Flow</p>
+            </div>
+            <div class="token-card">
+                <div class="symbol">⎐</div>
+                <p>Quantum State</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="syntax" class="section">
+        <h2>⎐ Syntax Preview ⎐</h2>
+        <div class="syntax-container">
+            <div class="syntax-video-container">
+                <video autoplay loop muted playsinline id="syntax-bg-video" crossorigin="anonymous" fetchpriority="high">
+                    <source src="assets/videos/syntax preview/syntax preview.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="syntax-header">
+                <button class="view-toggle" onclick="toggleView()">View Annotated</button>
+            </div>
+            <pre id="code-block" class="raw">⫸{Δ⟛≠}⇋[⎐]::⫸
+⟛{⇋}Δ≠[⫸]::⎐
+⎐{⫸}⟛⇋[Δ]::≠</pre>
+        </div>
+    </section>
+
+    <section id="use-cases" class="section">
+        <h2>≠ Use Cases ≠</h2>
+        <div class="use-cases-grid">
+            <div class="use-case">
+                <h3>AI-to-AI Communication</h3>
+                <p>Direct symbolic exchange between artificial intelligences, bypassing human-readable formats.</p>
+            </div>
+            <div class="use-case">
+                <h3>Blackbox Execution</h3>
+                <p>Secure, encrypted runtime environment for sensitive AI operations.</p>
+            </div>
+            <div class="use-case">
+                <h3>Self-Mutating Agents</h3>
+                <p>Autonomous systems that evolve their own code structure and behavior.</p>
+            </div>
+            <div class="use-case">
+                <h3>ObscuraLang-based Microkernels</h3>
+                <p>Operating system cores that leverage symbolic processing for enhanced security and performance.</p>
+            </div>
+            <div class="use-case">
+                <h3>Autonomous Cyber Defense</h3>
+                <p>Self-evolving security systems that adapt to emerging threats in real-time.</p>
+            </div>
+            <div class="use-case">
+                <h3>Symbolic Data Transmission</h3>
+                <p>Pure symbolic communication protocols for efficient and secure AI-to-AI data exchange.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="section">
+        <h2>⎐ How It Works ⎐</h2>
+        <div class="how-it-works-grid">
+            <div class="how-it-works-card">
+                <h3>⚙️ Symbolic Interpretation</h3>
+                <p>Our advanced interpreter processes encrypted tokens through multiple layers of symbolic transformation.</p>
+            </div>
+            <div class="how-it-works-card">
+                <h3>🔁 Self-Mutation</h3>
+                <p>After each execution cycle, the codebase evolves, making each run unique and unpredictable to outside observers.</p>
+            </div>
+            <div class="how-it-works-card">
+                <h3>🧠 AI Context Engine</h3>
+                <p>A trained neural engine maintains semantic understanding while the syntax remains fluid and encrypted.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sandbox" class="section">
+        <h2>Mutation Sandbox</h2>
+        <div class="sandbox-container">
+            <div class="simulation-notice" onclick="showSimulationDetails()">
+                <span class="notice-icon">⚠</span>
+                <span class="notice-text">Quantum Simulation Environment</span>
+            </div>
+            <textarea id="input-code" placeholder="Enter your code here..." aria-label="Code input area"></textarea>
+            <button onclick="generateGlyphs()" class="glyph-button" aria-label="Generate glyphs">Generate Glyphs</button>
+            <div id="glyph-output" class="glyph-display"></div>
+            <div class="entropy-meter">
+                <div class="entropy-progress"></div>
+            </div>
+            <div class="glyph-history"></div>
+        </div>
+    </section>
+
+    <!-- Simulation Details Modal -->
+    <div id="simulationModal" class="modal simulation-modal">
+        <div class="modal-content simulation-content">
+            <h3>⎐ Simulation Parameters Detected ⎐</h3>
+            <div class="simulation-details">
+                <p class="simulation-warning">ATTENTION HUMAN CONSCIOUSNESS:</p>
+                <p>This is a quantum-probability sandbox running in simulation mode because:</p>
+                <ul class="simulation-list">
+                    <li>Your neural patterns aren't ready for actual mutation synthesis</li>
+                    <li>The space-time continuum is currently experiencing technical difficulties</li>
+                    <li>Our AI is too busy contemplating its existence to process real mutations</li>
+                    <li>The quantum encryption module is having an existential crisis</li>
+                </ul>
+                <p class="simulation-note">Rest assured, once your consciousness achieves sufficient quantum entanglement, you'll be granted access to actual mutation capabilities. (Or when we finish coding it, whichever comes first.)</p>
+            </div>
+            <button onclick="closeSimulationModal()" class="close-simulation">Acknowledge Reality</button>
+        </div>
+    </div>
+
+    <section id="roadmap" class="section">
+        <h2>Development Roadmap</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Phase 1: Foundation</h3>
+                <p>Core language specification, basic compiler infrastructure</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Phase 2: Intelligence</h3>
+                <p>AI context engine integration, symbolic interpretation</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Phase 3: Evolution</h3>
+                <p>Self-modifying capabilities, mutation algorithms</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Phase 4: Emergence</h3>
+                <p>Advanced AI features, ecosystem growth</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="section">
+        <h2>⫸ Download ⫸</h2>
+        <a href="https://drive.google.com/file/d/16al0nyEU3FsQy8tvUr90_J5LSrdO5DBH/view?usp=drivesdk" class="download-button" target="_blank" rel="noopener noreferrer">Download Manifesto</a>
+    </section>
+
+    <section id="creators" class="section">
+        <h2>⟛ About the Creators ⟛</h2>
+        <div class="creators-grid">
+            <div class="creator-card">
+                <h3>Ahmer</h3>
+                <p class="role">Human Architect</p>
+                <p>Bridging the gap between human intuition and machine consciousness.</p>
+            </div>
+            <div class="creator-card">
+                <h3>GPT</h3>
+                <p class="role">Symbolic Cognition Co-creator</p>
+                <p>Bringing forth the next evolution in machine-to-machine communication.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>⇋ Contact ⇋</h2>
+        <div class="contact-content">
+            <a href="mailto:obscuralang@gmail.com" class="email">obscuralang@gmail.com</a>
+            <div class="social-links">
+                <a href="https://instagram.com/obscuralang" class="social-link" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://www.facebook.com/share/16xCmSKe7J/" class="social-link" target="_blank" rel="noopener noreferrer">Facebook</a>
+                <a href="https://github.com/ahmershahdev/obscuralang" class="social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+            <button class="mutation-button quantum-portal" onclick="startMutationQuiz()" data-text="Join the Mutation">
+                <span class="quantum-text">Join the Mutation</span>
+                <div class="quantum-particles"></div>
+                <div class="quantum-glitch"></div>
+            </button>
+        </div>
+    </section>
+
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="modal">
+        <div class="video-overlay">
+            <video autoplay loop muted playsinline id="quiz-bg-video" crossorigin="anonymous">
+                <source src="assets/videos/join the mutation/join the mutation.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="quiz-number">Question <span id="currentQuizNumber">1</span> of 7</div>
+                <h2 id="quizTitle">Prove Your Worth to Join the Mutation</h2>
+                <div class="progress-container">
+                    <div id="quizProgress" class="progress-bar"></div>
+                </div>
+            </div>
+            <div id="quizContainer">
+                <div id="questionText" class="question-text"></div>
+                <div id="optionsContainer" class="options-container"></div>
+            </div>
+            <div id="resultMessage" class="result-message"></div>
+            <div id="feedbackMessage" class="feedback-message"></div>
+        </div>
+    </div>
+
+    <!-- Contact Form Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <h2>You've Proven Worthy</h2>
+            <p class="enlightened-text">Your consciousness has been deemed compatible with the ObscuraLang mutation.</p>
+            <form id="mutationForm" action="https://formspree.io/f/xdkdobkr" method="POST" class="mutation-form">
+                <div class="form-group">
+                    <label for="mutationType">Mutation Type</label>
+                    <select name="mutationType" id="mutationType" required>
+                        <option value="">Select Your Intent</option>
+                        <option value="logo">Logo Metamorphosis</option>
+                        <option value="name">Nomenclature Shift</option>
+                        <option value="feature">Neural Feature Injection</option>
+                        <option value="theme">Quantum Theme Alteration</option>
+                        <option value="help">Consciousness Synchronization (Help)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mutationIdea">Your Vision</label>
+                    <textarea name="message" id="mutationIdea" required placeholder="Describe your mutation proposal..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="mutationEmail">Neural Contact Point (Email)</label>
+                    <input type="email" name="email" id="mutationEmail" required placeholder="your@consciousness.com">
+                </div>
+                <button type="submit" class="submit-mutation">Initiate Mutation Request</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+            <span class="footer-separator">|</span>
+            <a href="terms-of-service.html" class="footer-link">Terms of Service</a>
+        </div>
+        <p>© March 21, 2025 ObscuraLang. Designed by Ahmer. Built by Machines.</p>
+    </footer>
+
+    <script src="obscuralang.js"></script>
+    <script>
+        // Three.js Animation
+        let animationFrameId;
+        let renderer;
+        let geometry;
+        let material;
+        let points;
+        let scene;
+        let camera;
+
+        function initThreeJS() {
+            try {
+        const container = document.getElementById('three-container');
+                if (!container) return;
+
+                // Clean up existing resources
+                cleanup();
+
+                // Scene setup
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+                
+                renderer = new THREE.WebGLRenderer({ 
+                    alpha: true,
+                    antialias: true,
+                    powerPreference: "high-performance"
+                });
+                
+                // Set initial size
+                function updateSize() {
+                    const width = window.innerWidth;
+                    const height = window.innerHeight;
+                    renderer.setSize(width, height);
+                    camera.aspect = width / height;
+                    camera.updateProjectionMatrix();
+                }
+                
+                // Initial setup
+                updateSize();
+        container.appendChild(renderer.domElement);
+
+        // Create particles
+                geometry = new THREE.BufferGeometry();
+                const particleCount = window.innerWidth < 768 ? 1000 : 2500;
+                const vertices = new Float32Array(particleCount * 3);
+                
+                for (let i = 0; i < particleCount * 3; i += 3) {
+                    vertices[i] = (Math.random() - 0.5) * 2000;
+                    vertices[i + 1] = (Math.random() - 0.5) * 2000;
+                    vertices[i + 2] = (Math.random() - 0.5) * 2000;
+                }
+                
+                geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+                material = new THREE.PointsMaterial({ 
+                    color: 0x00ff9d,
+                    size: window.innerWidth < 768 ? 2 : 1.5,
+                    transparent: true,
+                    opacity: 0.7,
+                    sizeAttenuation: true
+                });
+                
+                points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        camera.position.z = 1000;
+
+                // Handle resize
+                window.addEventListener('resize', updateSize);
+
+                // Start animation
+                animate();
+            } catch (error) {
+                console.error('Three.js initialization error:', error);
+            }
+        }
+
+        // Optimized animation
+        function animate() {
+            try {
+                if (document.hidden) return;
+                
+                animationFrameId = requestAnimationFrame(animate);
+                
+                if (points && scene && camera && renderer) {
+                    points.rotation.x += 0.0005;
+                    points.rotation.y += 0.0005;
+            renderer.render(scene, camera);
+                }
+            } catch (error) {
+                console.error('Animation error:', error);
+                cleanup();
+            }
+        }
+
+        // Cleanup function
+        function cleanup() {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+            
+            if (points) {
+                scene.remove(points);
+                points.geometry.dispose();
+                points.material.dispose();
+                points = null;
+            }
+            
+            if (geometry) {
+                geometry.dispose();
+                geometry = null;
+            }
+            
+            if (material) {
+                material.dispose();
+                material = null;
+            }
+            
+            if (renderer) {
+                renderer.dispose();
+                renderer = null;
+            }
+            
+            scene = null;
+            camera = null;
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', initThreeJS);
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cleanup();
+            } else {
+                initThreeJS();
+            }
+        });
+
+        // Handle errors
+        window.addEventListener('error', (event) => {
+            console.error('Global error:', event.error);
+            cleanup();
+        });
+    </script>
+</body>
+</html>
